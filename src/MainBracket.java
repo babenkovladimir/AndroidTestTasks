@@ -5,19 +5,25 @@ import java.io.InputStreamReader;
 public class MainBracket {
 
     public static void main(String[] args) {
-        int count = 0;
-        boolean rez = true;
-        char[] expression=null;
-
+        String exp = null;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         try {
             System.out.print("Enter expression :");
-            String exp = br.readLine();
-            expression=exp.toCharArray();
+            exp = br.readLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        System.out.println("Expression by count- " + checkByCount(exp));
+        checkByReplacing(exp);
+
+    }
+
+    private static boolean checkByCount(String exp) {
+        int count = 0;
+        boolean rez = true;
+        char[] expression = exp.toCharArray();
 
         for (char c : expression) {
             if (c == '(') count++;
@@ -26,6 +32,22 @@ public class MainBracket {
         }
 
         if (!(count == 0)) rez = false;
-        System.out.println("Expression - " + rez);
+        return rez;
+    }
+
+
+    private static boolean checkByReplacing(String exp) {
+        boolean rez = true;
+
+        while (exp.length() > 2) {
+            if (exp.contains("()")) {
+                exp.replace("()", "");
+                
+            }
+            System.out.println(exp.indexOf("()"));
+
+        }
+
+        return rez;
     }
 }
