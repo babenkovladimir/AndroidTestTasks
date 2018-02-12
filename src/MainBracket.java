@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Stack;
 
 public class MainBracket {
 
@@ -16,8 +17,22 @@ public class MainBracket {
         }
 
         System.out.println("Expression by count- " + checkByCount(exp));
-        checkByReplacing(exp);
+        System.out.println("Expression by stack- " + checkByStack(exp));
+    }
 
+    private static boolean checkByStack(String string) {
+        boolean rez = true;
+
+        Stack<Integer> stack = new Stack<>();
+        stack.push(1);//start value
+
+        for (int i = 0; i < string.length(); i++) {
+            if (string.charAt(i) == '(') stack.push(1);
+            if (string.charAt(i) == ')') stack.pop();
+        }
+        if (stack.empty() || stack.size() > 1) rez = false;
+
+        return rez;
     }
 
     private static boolean checkByCount(String exp) {
@@ -32,22 +47,6 @@ public class MainBracket {
         }
 
         if (!(count == 0)) rez = false;
-        return rez;
-    }
-
-
-    private static boolean checkByReplacing(String exp) {
-        boolean rez = true;
-
-        while (exp.length() > 2) {
-            if (exp.contains("()")) {
-                exp.replace("()", "");
-                
-            }
-            System.out.println(exp.indexOf("()"));
-
-        }
-
         return rez;
     }
 }
